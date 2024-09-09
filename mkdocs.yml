@@ -52,15 +52,15 @@ plugins:
       lang:
         - zh
         - en
-  # - git-revision-date-localized:
-  #     enable_creation_date: true
-  # - git-committers:
-  #     repository: Siris-Li/Modern_SoC_Design_Note
-  #     branch: main
-  # - git-authors:
-  #     show_contribution: true
-  #     show_line_count: true
-  #     count_empty_lines: true
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - git-committers:
+      repository: Siris-Li/Modern_SoC_Design_Note
+      branch: main
+  - git-authors:
+      show_contribution: true
+      show_line_count: true
+      count_empty_lines: true
 extra_css:
   - extra.css
 
