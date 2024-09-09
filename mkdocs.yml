@@ -1,0 +1,68 @@
+site_name: Note for Modern SoC Design
+site_url: https://github.com/Siris-Li/Modern_SoC_Design_Note
+site_author: Siris-Li
+copyright: Copyright &copy; 2024 School of Integrated Circuits, Peking University
+
+repo_url: https://github.com/Siris-Li/Modern_SoC_Design_Note
+repo_name: GitHub Repo
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  language: zh
+  logo: figs/pku_logo.png
+  favicon: figs/pku_logo_red.png
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: custom
+      accent: pink
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  font:
+    code: JetBrainsMono
+  features:
+    - navigation.top
+    - navigation.instant
+    - navigation.footer
+    - content.code.copy
+    - content.code.annotate
+    - content.action.view
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+  # - git-revision-date-localized:
+  #     enable_creation_date: true
+  # - git-committers:
+  #     repository: Siris-Li/Modern_SoC_Design_Note
+  #     branch: main
+  # - git-authors:
+  #     show_contribution: true
+  #     show_line_count: true
+  #     count_empty_lines: true
+extra_css:
+  - extra.css
+
+nav:
+  - Welcome to Modern SoC Design Notes!: index.md
