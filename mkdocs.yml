@@ -46,6 +46,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.superfences
   - pymdownx.snippets
+  - pymdownx.arithmatex
 
 plugins:
   - search:
@@ -61,8 +62,14 @@ plugins:
       show_contribution: true
       show_line_count: true
       count_empty_lines: true
+
 extra_css:
   - extra.css
 
+extra_javascript:
+  - 'js/extra.js'
+  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+
 nav:
   - Welcome to Modern SoC Design Notes!: index.md
+  - I. Pipeline: pipeline.md
