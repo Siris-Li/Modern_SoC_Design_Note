@@ -350,7 +350,7 @@
         <li class="md-nav__item">
   <a href="#14" class="md-nav__link">
     <span class="md-ellipsis">
-      1.4 指令
+      1.4 指令编码
     </span>
   </a>
   
@@ -375,7 +375,7 @@
         
   
   <span class="md-ellipsis">
-    II. Super Scalar
+    II. Superscalar
   </span>
   
 
@@ -440,7 +440,7 @@
         <li class="md-nav__item">
   <a href="#14" class="md-nav__link">
     <span class="md-ellipsis">
-      1.4 指令
+      1.4 指令编码
     </span>
   </a>
   
@@ -497,6 +497,10 @@ RISC-V 编译器得知当前硬件包含哪些扩展后，便可为该硬件生�
   <figcaption>RISC-V Instruction Length Encoding</figcaption>
 </figure>
 
+<div class="admonition warning">
+<p class="admonition-title">指令长度</p>
+<p>如无特殊说明，默认指令长度为 32-bit，即不考虑变长指令。</p>
+</div>
 <h2 id="13">1.3 寄存器结构与特权模式定义</h2>
 <p>RISC-V 指令集架构支持 32 位、64 位和 128 位模式，相应的的寄存器位宽为 32-bit、64-bit和 128-bit（通常使用 <strong>XLEN</strong> 表示）。</p>
 <p>RISC-V 指令集中有 32 个整数寄存器 x0-x31（General Purpose Register，GPR）。
@@ -635,12 +639,41 @@ CSR 记录了 CPU 当前的状态信息，因此对于仿真或者流片后验�
 <li>支持机器模式与用户模式的系统，可以实现<strong>资源保护</strong>。</li>
 <li>支持机器模式、监督模式与用户模式的系统，可以实现<strong>类似 UNIX 的操作系统</strong>。</li>
 </ul>
-<p>应用程序（在U-mode下运行）通常无法直接执行特权指令，而是通过<strong>系统调用</strong>（Syscall）机制请求操作系统（在S-mode或M-mode下运行）提供服务，如访问硬件或管理资源。</p>
-<h2 id="14">1.4 指令</h2>
+<p>应用程序（在 U-mode 下运行）通常无法直接执行特权指令，而是通过<strong>系统调用</strong>（Syscall）机制请求操作系统（在 S-mode 或 M-mode 下运行）提供服务，如访问硬件或管理资源。</p>
+<h2 id="14">1.4 指令编码</h2>
+<p>在 RISC-V 指令集架构中，有 4 种指令格式（R/I/S/U），指令长度固定为 32-bit（不考虑指令长度扩展），必须与 4-byte 地址对齐（通常使用 <strong>IALIGN</strong> 表示）。</p>
+<details class="tip">
+<summary>instruction-address-migaligned exception</summary>
+<p>分支指令或无条件跳转指令可能会导致 <code>instruction-address-misaligned</code> 异常，触发该异常的指令（即所记录的异常指令）为分支或跳转指令，不是目标指令。</p>
+</details>
+<details class="info">
+<summary>reserved instruction</summary>
+<p>RISC-V ISA 通常会保留一些位置的编码，以便未来扩展，这些位置的指令称为 <code>reserved instruction</code>。
+解码器在遇到 <code>reserved instruction</code> 时的行为 ISA 并为定义，取决于具体硬件。</p>
+</details>
+<p>在实现中，解码器通常位于<strong>关键路径</strong>上，因此将所有格式中的 Opcode、rs1（register specifiers）等保持在同一位置，代价是立即数被拆分成多个部分。</p>
+<p>为了获得足够的编码空间，立即数编码只有 12-bit，对于 32-bit 立即数，需要使用两条指令（其中一条为 LUI，load-upper-immediate）来加载。</p>
+<p>U/J 型指令有 20-bit 立即数位，用于更加高效地<strong>处理立即数</strong>。</p>
 <figure>
   <img src="../figs/riscv_instr_format.png" width=90%>
   <figcaption>RISC-V Instruction Format</figcaption>
 </figure>
+
+<p>S 格式和 B 格式之间的唯一区别是，在 B 格式中，12 位立即数<strong>需要乘 2</strong> 作为偏移量。
+B 格式中间位（imm[10:1]）和符号位（imm[12]）<strong>保持在固定位置</strong>（与 S 相同），而 S 格式中的最低位（inst[7]）在 B 格式中<strong>编码为高位</strong>（imm[11]）。</p>
+<p>U 格式和 J 格式之间的唯一区别是 20 位立即数<strong>左移 12 位</strong>形成 U 型指令立即数，<strong>左移 1 位</strong>形成 J 型指令立即数。
+U 和 J 格式立即数中指令位的位置选择是为了最大限度地与其他格式及彼此<strong>重叠</strong>。</p>
+<p>下图为不同指令格式所产生的 32-bit 立即数。</p>
+<figure>
+  <img src="../figs/riscv_imm_format.png" width=90%>
+  <figcaption>Types of Immediate</figcaption>
+</figure>
+
+<p><strong>符号扩展</strong>是立即数运算上最重要的操作之一（特别是对于 XLEN &gt; 32 的架构来说）。
+在RISC-V中，所有立即数的符号位<strong>始终在指令的最高位</strong>中，允许符号扩展与指令解码<strong>并行</strong>进行。</p>
+<p>指令编码中的立即数通常需要进行某些位操作，比如左移一位来实现乘以 2 的效果。
+传统方法是使用<strong>硬件多路复用器</strong>来动态地进行这些操作，这会增加硬件的复杂性和成本。
+通过在编码阶段直接<strong>对立即数的位进行调整</strong>（相当于<strong>在编码时就已经完成了位操作</strong>），可以减少这些硬件多路复用器的使用，从而<strong>降低信号扇出和硬件成本</strong>。</p>
 
 
 
@@ -772,13 +805,13 @@ CSR 记录了 CPU 当前的状态信息，因此对于仿真或者流片后验�
         
         
           
-          <a href="../superscalar/" class="md-footer__link md-footer__link--next" aria-label="下一页: II. Super Scalar">
+          <a href="../superscalar/" class="md-footer__link md-footer__link--next" aria-label="下一页: II. Superscalar">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                II. Super Scalar
+                II. Superscalar
               </div>
             </div>
             <div class="md-footer__button md-icon">
