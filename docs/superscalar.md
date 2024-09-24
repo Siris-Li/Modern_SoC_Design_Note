@@ -1,6 +1,6 @@
-# 一、流水线
+# 二、超标量概述
 
-## 1.1 建模
+## 2.1 流水线建模
 
 ### 性能模型
 
@@ -54,3 +54,25 @@ $$
 $$
 k_{opt} = \sqrt{\frac{G \cdot T}{L \cdot S}}
 $$
+
+## 2.2 超标量
+
+<figure>
+  <img src="../figs/ss_advantage.png" width=60%>
+  <figcaption>Easing Squential Bottleneck with ILP</figcaption>
+</figure>
+
+$f$ 为可以被向量化操作加速的代码比例，$N$ 为处理器的个数，则根据阿姆达尔定律，整体的加速比为：
+
+$$
+S=\frac{1}{(1-f)+(f/6)}
+$$
+
+引入超标量之后，可以提高处理器的 ILP（Instruction Level Parallelism）。
+假设无法被矢量加速部分的并行度可以被超标量提升到2，则整体的加速比为：
+
+$$
+S=\frac1{\dfrac{(1-f)}2+\dfrac f6}
+$$
+
+因此，超标量实现了较为底层的 ILP（Instruction-Level Parallelism），在更为普遍的情况下都能实现性能的提升。

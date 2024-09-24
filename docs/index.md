@@ -4,7 +4,8 @@
 
 ## 目录
 
-- [一、流水线](pipeline.md)
+- [一、RISC-V 指令集](riscv.md)
+- [二、超标量概述](superscalar.md)
 
 ## 更新日志
 
