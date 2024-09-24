@@ -10,23 +10,25 @@
         <meta name="author" content="Siris-Li">
       
       
-        <link rel="canonical" href="https://github.com/Siris-Li/Modern_SoC_Design_Note/pipeline/">
+        <link rel="canonical" href="https://github.com/Siris-Li/Modern_SoC_Design_Note/riscv/">
       
       
         <link rel="prev" href="..">
       
       
+        <link rel="next" href="../superscalar/">
+      
       
       <link rel="icon" href="../figs/pku_logo_red.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
     
     
       
-        <title>I. Pipeline - Note for Modern SoC Design</title>
+        <title>I. RISC-V ISA - Note for Modern SoC Design</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.35f28582.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.06209087.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#risc-v" class="md-skip">
           跳转至
         </a>
       
@@ -111,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              I. Pipeline
+              I. RISC-V ISA
             
           </span>
         </div>
@@ -286,7 +288,7 @@
           
   
   <span class="md-ellipsis">
-    I. Pipeline
+    I. RISC-V ISA
   </span>
   
 
@@ -297,7 +299,7 @@
         
   
   <span class="md-ellipsis">
-    I. Pipeline
+    I. RISC-V ISA
   </span>
   
 
@@ -319,44 +321,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#11" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      1.1 建模
+      
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1.1 建模">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      性能模型
+      
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      成本模型
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      性能/成本权衡
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -364,6 +342,26 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../superscalar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    II. Super Scalar
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -395,44 +393,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#11" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      1.1 建模
+      
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1.1 建模">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      性能模型
+      
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      成本模型
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      性能/成本权衡
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -456,85 +430,66 @@
     
       
     
-    <a href="https://github.com/Siris-Li/Modern_SoC_Design_Note/raw/main/docs/pipeline.md" title="查看本页的源代码" class="md-content__button md-icon">
+    <a href="https://github.com/Siris-Li/Modern_SoC_Design_Note/raw/main/docs/riscv.md" title="查看本页的源代码" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="_1">一、流水线</h1>
-<h2 id="11">1.1 建模</h2>
-<h3 id="_2">性能模型</h3>
+<h1 id="risc-v">RISC-V 指令集概述</h1>
+<p>RISC-V指令集的一个特点是<strong>模块化</strong>，其核心是一个名为 RV32I 的基础 ISA，可运行完整的软件栈。
+RV32I 已冻结，永不改变，这为编译器开发者、操作系统开发者和汇编语言程序员提供了稳定的指令目标。
+模块化特性源于可选的标准扩展，硬件可根据应用程序的需求决定是否包含它们。
+这种模块化特性能设计出面积小、能耗低的 RISC-V 处理器，这对于嵌入式应用至关重要。
+RISC-V 编译器得知当前硬件包含哪些扩展后，便可为该硬件生成最优代码。</p>
+<p>一般约定将扩展对应的字母加到指令集名称之后，以指示包含哪些扩展。
+例如，RV32IMFDA 在必选基础指令集（RV32I）上添加了乘法（RV32M），单精度浮点（RV32F）, 双精度浮点（RV32D）和原子指令（RV32A）扩展。</p>
+<div class="admonition note">
+<p class="admonition-title">通用标量指令</p>
+<p>RV32MFDA 以及 Zicsr，Zifencei 是 RISC-V 的标准扩展，它们与 RV32I 统称为 RV32G（G 代表 general），即 RV32G = RV32IMAFDZicsr_Zifencei。</p>
+<p>如果你注意过 <code>RISC-V gcc</code> 中的 <code>-march</code> 选项，你可能会发现它形如 <code>rv32imac_zba_zbb_zbs_zbc_zicsr_zifencei</code>。
+这是因为，除了标准扩展之外，还有其他可选扩展，例如 <code>zb*</code> 指的是 “B” 标准扩展（Bit-manipulation）。</p>
+</div>
+<p>RISC-V 支持变长指令，要求指令长度为 16 位的整数倍，与 16 位地址对齐。
+对于 16 位的压缩指令集，其最低两位不能为 11；对于 32 位指令集，其最低两位固定为 11，第 [4:2] 位不能为 111。</p>
+<p>硬件可以根据低位的若干位快速判断出指令的位宽，便于硬件电路的实现。</p>
 <figure>
-  <img src="../figs/pipe_perf_model.png" width=30%>
-  <figcaption>Pipeline Performance Model</figcaption>
+  <img src="../figs/riscv_instr_length.png" width=90%>
+  <figcaption>RISC-V Instruction Length Encoding</figcaption>
 </figure>
 
-<p>假设非流水线时延为 T，则非流水线吞吐率为：</p>
-<div class="arithmatex">
-<div class="MathJax_Preview">
-\textit{Throughput}_{unpipelined} = \frac{1}{T}
-</div>
-<script type="math/tex; mode=display">
-\textit{Throughput}_{unpipelined} = \frac{1}{T}
-</script>
-</div>
-<p>假设流水线级数为 k，寄存器时延为 S，则流水线吞吐率为：</p>
-<div class="arithmatex">
-<div class="MathJax_Preview">
-\textit{Throughput}_{pipelined} = \frac{1}{\dfrac{T}{k} + S}
-</div>
-<script type="math/tex; mode=display">
-\textit{Throughput}_{pipelined} = \frac{1}{\dfrac{T}{k} + S}
-</script>
-</div>
-<h3 id="_3">成本模型</h3>
-<figure>
-  <img src="../figs/pipe_cost_model.png" width=30%>
-  <figcaption>Pipeline Cost Model</figcaption>
-</figure>
-
-<p>假设非流水线的设计成本为 G：</p>
-<div class="arithmatex">
-<div class="MathJax_Preview">
-\textit{Cost}_{unpipelined} = G
-</div>
-<script type="math/tex; mode=display">
-\textit{Cost}_{unpipelined} = G
-</script>
-</div>
-<p>假设流水线级数为 k，每一级流水线的成本为 L，则流水线的设计成本为：</p>
-<div class="arithmatex">
-<div class="MathJax_Preview">
-\textit{Cost}_{pipeline} = G + k \cdot L
-</div>
-<script type="math/tex; mode=display">
-\textit{Cost}_{pipeline} = G + k \cdot L
-</script>
-</div>
-<h3 id="_4">性能/成本权衡</h3>
-<figure>
-  <img src="../figs/pipe_cost_perf_balance.png" width=30%>
-  <figcaption>Pipeline Cost Model</figcaption>
-</figure>
-
-<div class="arithmatex">
-<div class="MathJax_Preview">
-\frac{\textit{Cost}_{pipelined}}{\textit{Performance}_{pipelined}} = \frac{G + k \cdot L}{\dfrac{T}{k} + S} = (G + k \cdot L) \cdot (\frac{T}{k} + S)
-</div>
-<script type="math/tex; mode=display">
-\frac{\textit{Cost}_{pipelined}}{\textit{Performance}_{pipelined}} = \frac{G + k \cdot L}{\dfrac{T}{k} + S} = (G + k \cdot L) \cdot (\frac{T}{k} + S)
-</script>
-</div>
-<div class="arithmatex">
-<div class="MathJax_Preview">
-k_{opt} = \sqrt{\frac{G \cdot T}{L \cdot S}}
-</div>
-<script type="math/tex; mode=display">
-k_{opt} = \sqrt{\frac{G \cdot T}{L \cdot S}}
-</script>
-</div>
+<hr />
+<p>RISC-V Privileged Instruction Set Architecture</p>
+<p>RISC-V Instruction Set
+^^^^^^^^^^^^^^^^^</p>
+<p>.. note::</p>
+<p>Privilege
+^^^^^^^^^^^^^^^^^</p>
+<p><code>RISC-V 官方文档 &lt;https://riscv.org/technical/specifications/&gt;</code>__ 分为两大部分：非特权指令集（Unprivileged ISA）和特权指令集（Privileged ISA）。</p>
+<p>Unprivileged ISA</p>
+<h6 id="_1"></h6>
+<p>这部分定义了所有执行模式下都可以使用的基本指令集。
+它包括整数、浮点、原子操作等基本指令，以及寄存器和基本的执行环境。
+这些指令集构成了RISC-V程序的核心，是所有RISC-V兼容设备必须支持的基础。</p>
+<p>Privileged ISA</p>
+<h6 id="_2"></h6>
+<p>处理器的代码可以运行在不同等级的模式下，一般而言软件代码会默认运行在用户模式（<em>user mode</em>, U mode）下，该模式具有最低的权限。
+除此以外，还有监管模式（<em>supervisor mode</em>, S mode）和机器模式（<em>machine mode</em>, M mode）。
+操作系统一般运行在 S 模式下，而 M 模式则具有最高的特权，最重要的特性是拦截和处理异常（不寻常的运行时事件）。
+在 M 模式下运行的代码能完全访问内存、I/O 和底层系统功能，这对启动和配置系统是必不可少的。
+因此，M 模式是唯一一个所有标准 RISC-V 处理器都必须实现的特权模式。
+应用程序（在U-mode下运行）通常无法直接执行特权指令，而是通过系统调用（Syscall）机制请求操作系统（在S-mode或M-mode下运行）提供服务，如访问硬件或管理资源。</p>
+<p>.. note::</p>
+<div class="highlight"><pre><span></span><code>实际上简单的 RISC-V 微控制器仅支持 M 模式。
+我们流片的 CPU 支持 U、S、M 模式，可以启动 Linux。
+</code></pre></div>
+<p>Control Status Register
+^^^^^^^^^^^^^^^^^</p>
+<p>体系结构的课程中一定会学习到寄存器堆（Register File），这些寄存器也被称为 GPR（General Purpose Register）。
+实际上还有另一个“寄存器堆”——控制状态寄存器（CSR），它们被用来实现特权架构所带来的新特性，例如 :code:<code>mcause</code> 用于记录异常和中断的原因。
+除了处理特权架构，还有一些 CSR 用于标识处理器特性或测量性能，例如 :code:<code>mcycle</code> 用于记录运行周期数。
+CSR 记录了 CPU 当前的状态信息，因此对于仿真或者流片后验证都十分重要。</p>
 
 
 
@@ -557,7 +512,7 @@ k_{opt} = \sqrt{\frac{G \cdot T}{L \cdot S}}
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月24日</span>
   </span>
 
     
@@ -567,7 +522,7 @@ k_{opt} = \sqrt{\frac{G \cdot T}{L \cdot S}}
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月14日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月24日</span>
   </span>
 
     
@@ -665,6 +620,22 @@ k_{opt} = \sqrt{\frac{G \cdot T}{L \cdot S}}
           </a>
         
         
+          
+          <a href="../superscalar/" class="md-footer__link md-footer__link--next" aria-label="下一页: II. Super Scalar">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                II. Super Scalar
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
       </nav>
     
   
@@ -694,7 +665,7 @@ k_{opt} = \sqrt{\frac{G \cdot T}{L \cdot S}}
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "navigation.instant", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.view"], "search": "../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "navigation.instant", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.view"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
       <script src="../assets/javascripts/bundle.56dfad97.min.js"></script>

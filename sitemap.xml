@@ -2,10 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://github.com/Siris-Li/Modern_SoC_Design_Note/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-24</lastmod>
     </url>
     <url>
-         <loc>https://github.com/Siris-Li/Modern_SoC_Design_Note/pipeline/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <loc>https://github.com/Siris-Li/Modern_SoC_Design_Note/riscv/</loc>
+         <lastmod>2024-09-24</lastmod>
+    </url>
+    <url>
+         <loc>https://github.com/Siris-Li/Modern_SoC_Design_Note/superscalar/</loc>
+         <lastmod>2024-09-24</lastmod>
     </url>
 </urlset>

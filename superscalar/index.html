@@ -10,26 +10,26 @@
         <meta name="author" content="Siris-Li">
       
       
-        <link rel="canonical" href="https://github.com/Siris-Li/Modern_SoC_Design_Note/">
+        <link rel="canonical" href="https://github.com/Siris-Li/Modern_SoC_Design_Note/superscalar/">
+      
+      
+        <link rel="prev" href="../riscv/">
       
       
       
-        <link rel="next" href="riscv/">
-      
-      
-      <link rel="icon" href="figs/pku_logo_red.png">
+      <link rel="icon" href="../figs/pku_logo_red.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
     
     
       
-        <title>Note for Modern SoC Design</title>
+        <title>II. Super Scalar - Note for Modern SoC Design</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.06209087.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.06209087.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,9 +48,9 @@
       
     
     
-      <link rel="stylesheet" href="extra.css">
+      <link rel="stylesheet" href="../extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="." title="Note for Modern SoC Design" class="md-header__button md-logo" aria-label="Note for Modern SoC Design" data-md-component="logo">
+    <a href=".." title="Note for Modern SoC Design" class="md-header__button md-logo" aria-label="Note for Modern SoC Design" data-md-component="logo">
       
-  <img src="figs/pku_logo.png" alt="logo">
+  <img src="../figs/pku_logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Welcome to Modern SoC Design Notes!
+              II. Super Scalar
             
           </span>
         </div>
@@ -224,9 +224,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Note for Modern SoC Design" class="md-nav__button md-logo" aria-label="Note for Modern SoC Design" data-md-component="logo">
+    <a href=".." title="Note for Modern SoC Design" class="md-nav__button md-logo" aria-label="Note for Modern SoC Design" data-md-component="logo">
       
-  <img src="figs/pku_logo.png" alt="logo">
+  <img src="../figs/pku_logo.png" alt="logo">
 
     </a>
     Note for Modern SoC Design
@@ -250,6 +250,46 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to Modern SoC Design Notes!
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../riscv/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I. RISC-V ISA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -266,18 +306,18 @@
           
   
   <span class="md-ellipsis">
-    Welcome to Modern SoC Design Notes!
+    II. Super Scalar
   </span>
   
 
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="." class="md-nav__link md-nav__link--active">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Welcome to Modern SoC Design Notes!
+    II. Super Scalar
   </span>
   
 
@@ -299,37 +339,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 流水线建模
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 流水线建模">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      目录
+      性能模型
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      更新日志
+      成本模型
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="更新日志">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      当前版本
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      历史版本
+      性能/成本权衡
     </span>
   </a>
   
@@ -341,9 +381,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#22" class="md-nav__link">
     <span class="md-ellipsis">
-      致谢
+      2.2 超标量
     </span>
   </a>
   
@@ -353,46 +393,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="riscv/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    I. RISC-V ISA
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="superscalar/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    II. Super Scalar
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -424,37 +424,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 流水线建模
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 流水线建模">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      目录
+      性能模型
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      更新日志
+      成本模型
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="更新日志">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      当前版本
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      历史版本
+      性能/成本权衡
     </span>
   </a>
   
@@ -466,9 +466,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#22" class="md-nav__link">
     <span class="md-ellipsis">
-      致谢
+      2.2 超标量
     </span>
   </a>
   
@@ -494,38 +494,111 @@
     
       
     
-    <a href="https://github.com/Siris-Li/Modern_SoC_Design_Note/raw/main/docs/index.md" title="查看本页的源代码" class="md-content__button md-icon">
+    <a href="https://github.com/Siris-Li/Modern_SoC_Design_Note/raw/main/docs/superscalar.md" title="查看本页的源代码" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="_1">课程笔记</h1>
-<p>研究生课程《现代SoC芯片架构设计》笔记。</p>
-<h2 id="_2">目录</h2>
-<ul>
-<li><a href="riscv/">一、RISC-V 指令集</a></li>
-<li><a href="superscalar/">二、超标量概述</a></li>
-</ul>
-<h2 id="_3">更新日志</h2>
-<h3 id="_4">当前版本</h3>
-<div class="admonition bug">
-<p class="admonition-title">当前版本尚未公测</p>
-<p>开发中，尚未公测，敬请期待！</p>
+<h1 id="_1">二、超标量概述</h1>
+<h2 id="21">2.1 流水线建模</h2>
+<h3 id="_2">性能模型</h3>
+<figure>
+  <img src="../figs/pipe_perf_model.png" width=30%>
+  <figcaption>Pipeline Performance Model</figcaption>
+</figure>
+
+<p>假设非流水线时延为 T，则非流水线吞吐率为：</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\textit{Throughput}_{unpipelined} = \frac{1}{T}
 </div>
-<h3 id="_5">历史版本</h3>
-<h2 id="_6">致谢</h2>
-<p>感谢所有为该文档提供帮助的朋友们以及 ChatGPT！</p>
-<p>
-<span class='git-authors'>
-    <ul>
-        
-    <li><a href="mailto:mingxuanli_siris@163.com">Siris-Li</a>: 180 lines (100.0%)</li>
-    
-    </span>
-</ul>
-    </p>
+<script type="math/tex; mode=display">
+\textit{Throughput}_{unpipelined} = \frac{1}{T}
+</script>
+</div>
+<p>假设流水线级数为 k，寄存器时延为 S，则流水线吞吐率为：</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\textit{Throughput}_{pipelined} = \frac{1}{\dfrac{T}{k} + S}
+</div>
+<script type="math/tex; mode=display">
+\textit{Throughput}_{pipelined} = \frac{1}{\dfrac{T}{k} + S}
+</script>
+</div>
+<h3 id="_3">成本模型</h3>
+<figure>
+  <img src="../figs/pipe_cost_model.png" width=30%>
+  <figcaption>Pipeline Cost Model</figcaption>
+</figure>
+
+<p>假设非流水线的设计成本为 G：</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\textit{Cost}_{unpipelined} = G
+</div>
+<script type="math/tex; mode=display">
+\textit{Cost}_{unpipelined} = G
+</script>
+</div>
+<p>假设流水线级数为 k，每一级流水线的成本为 L，则流水线的设计成本为：</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\textit{Cost}_{pipeline} = G + k \cdot L
+</div>
+<script type="math/tex; mode=display">
+\textit{Cost}_{pipeline} = G + k \cdot L
+</script>
+</div>
+<h3 id="_4">性能/成本权衡</h3>
+<figure>
+  <img src="../figs/pipe_cost_perf_balance.png" width=30%>
+  <figcaption>Pipeline Cost Model</figcaption>
+</figure>
+
+<div class="arithmatex">
+<div class="MathJax_Preview">
+\frac{\textit{Cost}_{pipelined}}{\textit{Performance}_{pipelined}} = \frac{G + k \cdot L}{\dfrac{T}{k} + S} = (G + k \cdot L) \cdot (\frac{T}{k} + S)
+</div>
+<script type="math/tex; mode=display">
+\frac{\textit{Cost}_{pipelined}}{\textit{Performance}_{pipelined}} = \frac{G + k \cdot L}{\dfrac{T}{k} + S} = (G + k \cdot L) \cdot (\frac{T}{k} + S)
+</script>
+</div>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+k_{opt} = \sqrt{\frac{G \cdot T}{L \cdot S}}
+</div>
+<script type="math/tex; mode=display">
+k_{opt} = \sqrt{\frac{G \cdot T}{L \cdot S}}
+</script>
+</div>
+<h2 id="22">2.2 超标量</h2>
+<figure>
+  <img src="../figs/ss_advantage.png" width=60%>
+  <figcaption>Easing Squential Bottleneck with ILP</figcaption>
+</figure>
+
+<p><span class="arithmatex"><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> 为可以被向量化操作加速的代码比例，<span class="arithmatex"><span class="MathJax_Preview">N</span><script type="math/tex">N</script></span> 为处理器的个数，则根据阿姆达尔定律，整体的加速比为：</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+S=\frac{1}{(1-f)+(f/6)}
+</div>
+<script type="math/tex; mode=display">
+S=\frac{1}{(1-f)+(f/6)}
+</script>
+</div>
+<p>引入超标量之后，可以提高处理器的 ILP（Instruction Level Parallelism）。
+假设无法被矢量加速部分的并行度可以被超标量提升到2，则整体的加速比为：</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+S=\frac1{\dfrac{(1-f)}2+\dfrac f6}
+</div>
+<script type="math/tex; mode=display">
+S=\frac1{\dfrac{(1-f)}2+\dfrac f6}
+</script>
+</div>
+<p>因此，超标量实现了较为底层的 ILP（Instruction-Level Parallelism），在更为普遍的情况下都能实现性能的提升。</p>
 
 
 
@@ -558,7 +631,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月9日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月14日</span>
   </span>
 
     
@@ -639,22 +712,22 @@
       
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
-        
           
-          <a href="riscv/" class="md-footer__link md-footer__link--next" aria-label="下一页: I. RISC-V ISA">
+          <a href="../riscv/" class="md-footer__link md-footer__link--prev" aria-label="上一页: I. RISC-V ISA">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
             <div class="md-footer__title">
               <span class="md-footer__direction">
-                下一页
+                上一页
               </span>
               <div class="md-ellipsis">
                 I. RISC-V ISA
               </div>
             </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
           </a>
+        
         
       </nav>
     
@@ -685,12 +758,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.top", "navigation.instant", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.view"], "search": "assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "navigation.instant", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.view"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="assets/javascripts/bundle.56dfad97.min.js"></script>
+      <script src="../assets/javascripts/bundle.56dfad97.min.js"></script>
       
-        <script src="js/extra.js"></script>
+        <script src="../js/extra.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
