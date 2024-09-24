@@ -73,4 +73,4 @@ extra_javascript:
 nav:
   - Welcome to Modern SoC Design Notes!: index.md
   - I. RISC-V ISA: riscv.md
-  - II. Super Scalar: superscalar.md
+  - II. Superscalar: superscalar.md
