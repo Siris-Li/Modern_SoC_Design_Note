@@ -74,3 +74,4 @@ nav:
   - Welcome to Modern SoC Design Notes!: index.md
   - I. RISC-V ISA: riscv.md
   - II. Superscalar: superscalar.md
+  - III. Memory System: mem_sys.md
