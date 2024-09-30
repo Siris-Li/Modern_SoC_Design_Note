@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../figs/pku_logo_red.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.37">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
     
     
       
@@ -545,6 +545,37 @@
 另一种方法是<strong>并行访问</strong>标签存储器和数据存储器，这种方法<strong>更快</strong>，因为在确定命中或未命中时，所有路的缓存行都已被读取，剩下的就是从读取的缓存行中选择匹配的和对应的字节。
 这种设计方法的功耗相对之下就更高。</p>
 <h3 id="_3">替换策略</h3>
+<p>当需要访问的内存块不在缓存中时，访问会触发<strong>缓存未命中</strong>，并需要在缓存中<strong>选择剔除块</strong>去进行替换。
+在组相联的缓存中，可能有<strong>多个缓存行</strong>是替换的候选对象。
+理论上，最优替换策略是替换<strong>距离即将访问到的位置最远的块</strong>，但现实中<strong>无法实现</strong>，因为这需要来自未来的信息。</p>
+<p>实际中可行的替换策略是尝试<strong>最小化未命中率</strong>的方式选择剔除块。
+大多数研究都集中在更智能的<strong>粗粒度替换策略</strong>的开发上，每个缓存行都与少量的<strong>替换状态</strong>相关联，这些替换状态为所有新插入的缓存行进行统一初始化，然后再重复使用<strong>简单的规则</strong>进行缓存行插入操作。</p>
+<p><em>LRU (Least Recently Used)</em></p>
+<p>在选择被替换的缓存行时，LRU 策略简单地剔除一组给定候选缓存行中<strong>最旧的行</strong>。
+为了找到最旧的行，LRU 策略在概念上维护了一个<strong>新近栈</strong>，其中栈顶端表示最近使用（Most Recently Used）行，栈底部表示最近最少使用（LRU）行。
+通过将每一行与<strong>一个计数器相关联</strong>并对它进行更新来维护这个栈。</p>
+<p><em>MRU (Most Recently Used)</em></p>
+<p>通过剔除新的缓存行以保留旧的缓存行来解决缓存“颠簸”的问题。
+当应用程序的<strong>工作集大于缓存容量</strong>时，它能够<strong>保留</strong>工作集的一部分。</p>
+<p><em><a href="https://yanniss.github.io/eelrufinal2.pdf">EELRU (Early Eviction LRU)</a></em></p>
+<p>当工作集<strong>适合</strong>缓存时，EELRU 策略会剔除 <strong>LRU 缓存行</strong>，但当观察到以<strong>大于主内存的循环模式</strong>访问缓存行过多时，会剔除<strong>第 e 条最近使用的缓存行</strong>。</p>
+<figure>
+  <img src="../figs/cache_eelru.png" width=100%>
+  <figcaption>General EELRU Scheme</figcaption>
+</figure>
+
+<p>EELRU 策略会跟踪每个区域的缓存命中数。
+如果分布是<strong>单调递减</strong>，则 EELRU 假定没有缓存“颠簸”并<strong>剔除晚期区域</strong>的缓存行；如果分布显示<strong>晚期区域的命中次数多于早期区域</strong>，则 EELRU 策略会<strong>从早期区域</strong>剔除缓存行，这允许来自晚期区域的缓存行在缓存中保留更长的时间。</p>
+<p><em>Seg-LRU (Segmented LRU)</em></p>
+<p>通过<strong>优先保留至少被访问过两次</strong>的缓存行来处理扫描访问。
+Seg-LRU 将 LRU 栈分为两个逻辑段：<strong>试用段（Probationary Segment）</strong>和<strong>保护段（Protected Segment）</strong>。
+新写入的缓存行被插入到试用段中的 MRU 位置，并且在缓存命中时，缓存行被移动到保护段中的 MRU 位置。
+由于保护段是有限的，因此对保护段的写入可能会迫使<strong>保护段中的 LRU 缓存行迁移到试用段的 MRU端</strong>，从而使这条缓存行从试用段被剔除前有机会<strong>再次被命中</strong>。
+因为旧的缓存行最终会迁移到试用段，Seg-LRU 策略可以适应程序工作集的变化。</p>
+<p><em>LFU (Least Frequently Used)</em></p>
+<p>该策略将频率计数器与每个缓存行相关联。
+当新的行插入缓存时，频率计数器被初始化为 0，并且每次访问该行时都会递增。
+在缓存发生未命中时，具有最低访问频率的缓存行会被剔除。</p>
 
 
 
@@ -567,7 +598,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2024年9月30日</span>
   </span>
 
     
@@ -707,7 +738,7 @@
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "navigation.instant", "navigation.footer", "content.code.copy", "content.code.annotate", "content.action.view"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.d6f25eb3.min.js"></script>
+      <script src="../assets/javascripts/bundle.525ec568.min.js"></script>
       
         <script src="../js/extra.js"></script>
       
