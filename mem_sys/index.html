@@ -568,14 +568,44 @@
 如果分布是<strong>单调递减</strong>，则 EELRU 假定没有缓存“颠簸”并<strong>剔除晚期区域</strong>的缓存行；如果分布显示<strong>晚期区域的命中次数多于早期区域</strong>，则 EELRU 策略会<strong>从早期区域</strong>剔除缓存行，这允许来自晚期区域的缓存行在缓存中保留更长的时间。</p>
 <p><em>Seg-LRU (Segmented LRU)</em></p>
 <p>通过<strong>优先保留至少被访问过两次</strong>的缓存行来处理扫描访问。
-Seg-LRU 将 LRU 栈分为两个逻辑段：<strong>试用段（Probationary Segment）</strong>和<strong>保护段（Protected Segment）</strong>。
-新写入的缓存行被插入到试用段中的 MRU 位置，并且在缓存命中时，缓存行被移动到保护段中的 MRU 位置。
+Seg-LRU 将 LRU 栈分为两个逻辑段：<strong>试用段（Probationary Segment）</strong>和<strong>保护段（Protected Segment）</strong>。</p>
+<figure>
+  <img src="../figs/cache_seg_lru.png" width=50%>
+  <figcaption>Seg-LRU Replacement Policy</figcaption>
+</figure>
+
+<p>新写入的缓存行被插入到试用段中的 MRU 位置，并且在缓存命中时，缓存行被移动到保护段中的 MRU 位置。
 由于保护段是有限的，因此对保护段的写入可能会迫使<strong>保护段中的 LRU 缓存行迁移到试用段的 MRU端</strong>，从而使这条缓存行从试用段被剔除前有机会<strong>再次被命中</strong>。
 因为旧的缓存行最终会迁移到试用段，Seg-LRU 策略可以适应程序工作集的变化。</p>
 <p><em>LFU (Least Frequently Used)</em></p>
 <p>该策略将频率计数器与每个缓存行相关联。
 当新的行插入缓存时，频率计数器被初始化为 0，并且每次访问该行时都会递增。
 在缓存发生未命中时，具有最低访问频率的缓存行会被剔除。</p>
+<p><em>FBR (Frequency-Based Replacement)</em></p>
+<p>由于短暂的<strong>时间局部性</strong>可能产生“虚假”的高频率计数器值，从而误导基于单纯的频率统计的策略。
+因此，FBR 通过<strong>选择性</strong>地增加频率计数器来降低时间局部性的影响。
+由于 FBR 不会增加 LRU 栈的<strong>顶部</strong>的频率计数器，因此短暂的时间局部性不会影响频率计数器。</p>
+<figure>
+  <img src="../figs/cache_fbr.png" width=60%>
+  <figcaption>Frequency-Based Replacement</figcaption>
+</figure>
+
+<p>FBR 的缺点是一旦缓存行从新段老化，即使是经常使用的行也会很快被剔除，因为它们<strong>没有足够的时间</strong>来增加频率计数。</p>
+<p><em>LRFU (Least Recently/Frequently Used)</em></p>
+<p>LRFU 替换策略使用被称为新近和频率组合（Combined Recency and Frequency，CRF）的新指标，通过加权函数衡量每次访问的相对贡献。
+LRFU 为每个块计算一个 CRF 值，它是每个过往参考的权重函数 <span class="arithmatex"><span class="MathJax_Preview">F(x)</span><script type="math/tex">F(x)</script></span> 的总和，其中 <span class="arithmatex"><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> 是过去访问与当前时间的距离。</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">
+F\left(x\right)=\left(\frac1p\right)^{\large\lambda x}
+</div>
+<script type="math/tex; mode=display">
+F\left(x\right)=\left(\frac1p\right)^{\large\lambda x}
+</script>
+</div>
+<figure>
+  <img src="../figs/cache_lrfu.png" width=90%>
+  <figcaption>LRFU Replacement Policy</figcaption>
+</figure>
 
 
 
