@@ -87,6 +87,12 @@ EELRU 策略会跟踪每个区域的缓存命中数。
 
 通过**优先保留至少被访问过两次**的缓存行来处理扫描访问。
 Seg-LRU 将 LRU 栈分为两个逻辑段：**试用段（Probationary Segment）**和**保护段（Protected Segment）**。
+
+<figure>
+  <img src="../figs/cache_seg_lru.png" width=50%>
+  <figcaption>Seg-LRU Replacement Policy</figcaption>
+</figure>
+
 新写入的缓存行被插入到试用段中的 MRU 位置，并且在缓存命中时，缓存行被移动到保护段中的 MRU 位置。
 由于保护段是有限的，因此对保护段的写入可能会迫使**保护段中的 LRU 缓存行迁移到试用段的 MRU端**，从而使这条缓存行从试用段被剔除前有机会**再次被命中**。
 因为旧的缓存行最终会迁移到试用段，Seg-LRU 策略可以适应程序工作集的变化。
@@ -96,3 +102,30 @@ Seg-LRU 将 LRU 栈分为两个逻辑段：**试用段（Probationary Segment）
 该策略将频率计数器与每个缓存行相关联。
 当新的行插入缓存时，频率计数器被初始化为 0，并且每次访问该行时都会递增。
 在缓存发生未命中时，具有最低访问频率的缓存行会被剔除。
+
+*FBR (Frequency-Based Replacement)*
+
+由于短暂的**时间局部性**可能产生“虚假”的高频率计数器值，从而误导基于单纯的频率统计的策略。
+因此，FBR 通过**选择性**地增加频率计数器来降低时间局部性的影响。
+由于 FBR 不会增加 LRU 栈的**顶部**的频率计数器，因此短暂的时间局部性不会影响频率计数器。
+
+<figure>
+  <img src="../figs/cache_fbr.png" width=60%>
+  <figcaption>Frequency-Based Replacement</figcaption>
+</figure>
+
+FBR 的缺点是一旦缓存行从新段老化，即使是经常使用的行也会很快被剔除，因为它们**没有足够的时间**来增加频率计数。
+
+*LRFU (Least Recently/Frequently Used)*
+
+LRFU 替换策略使用被称为新近和频率组合（Combined Recency and Frequency，CRF）的新指标，通过加权函数衡量每次访问的相对贡献。
+LRFU 为每个块计算一个 CRF 值，它是每个过往参考的权重函数 $F(x)$ 的总和，其中 $x$ 是过去访问与当前时间的距离。
+
+$$
+F\left(x\right)=\left(\frac1p\right)^{\large\lambda x}
+$$
+
+<figure>
+  <img src="../figs/cache_lrfu.png" width=90%>
+  <figcaption>LRFU Replacement Policy</figcaption>
+</figure>
